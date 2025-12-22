@@ -6,12 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 
-class UserController extends Controller
+class UserController extends Controller implements HasMiddleware
 {
     use ApiResponser;
+
+    public static function middleware(): array
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show']),
+        ];
+    }
     /**
      * Display a listing of the users.
      */
