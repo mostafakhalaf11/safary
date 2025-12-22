@@ -53,4 +53,13 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    //relations, accessors, and mutators can be added here
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where($field ?? $this->getRouteKeyName(), $value)
+            ->where('is_deleted', false)
+            ->where('is_active', true)
+            ->first() ?? abort(404, 'User not found');
+    }
 }

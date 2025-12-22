@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'khalaf',
             'email' => 'khalaf@safary.com',
             'phone_number' => '+201153470446',
-            'type' => 'admin',
+            'type' => 'super-admin',
             'password' => bcrypt('Khalaf1997'),
             'profile_photo_path' => null,
             'is_verified' => true,
