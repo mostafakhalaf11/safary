@@ -23,8 +23,6 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->boolean('is_deleted')->default(false);
             $table->timestamp('email_verified_at')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('updated_by')->constrained('users')->cascadeOnDelete();
             $table->rememberToken();
             $table->timestamps();
         });

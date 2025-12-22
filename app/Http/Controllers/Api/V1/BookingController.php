@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Driver;
+use App\Http\Controllers\Controller;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 
-class DriverController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class DriverController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Driver $driver)
+    public function show(Booking $booking)
     {
         //
     }
@@ -34,7 +35,7 @@ class DriverController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Driver $driver)
+    public function update(Request $request, Booking $booking)
     {
         //
     }
@@ -42,7 +43,7 @@ class DriverController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Driver $driver)
+    public function destroy(Booking $booking)
     {
         //
     }

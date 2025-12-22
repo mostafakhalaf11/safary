@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Trip;
+use App\Http\Controllers\Controller;
+use App\Models\Delivery;
 use Illuminate\Http\Request;
 
-class TripController extends Controller
+class DeliveryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class TripController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Trip $trip)
+    public function show(Delivery $delivery)
     {
         //
     }
@@ -34,7 +35,7 @@ class TripController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Trip $trip)
+    public function update(Request $request, Delivery $delivery)
     {
         //
     }
@@ -42,7 +43,7 @@ class TripController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Trip $trip)
+    public function destroy(Delivery $delivery)
     {
         //
     }

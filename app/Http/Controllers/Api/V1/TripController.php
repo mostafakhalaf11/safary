@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api\V1;
 
-use App\Models\Booking;
+use App\Http\Controllers\Controller;
+use App\Models\Trip;
 use Illuminate\Http\Request;
 
-class BookingController extends Controller
+class TripController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,7 +27,7 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Booking $booking)
+    public function show(Trip $trip)
     {
         //
     }
@@ -34,7 +35,7 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Booking $booking)
+    public function update(Request $request, Trip $trip)
     {
         //
     }
@@ -42,7 +43,7 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Booking $booking)
+    public function destroy(Trip $trip)
     {
         //
     }
