@@ -12,11 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('deliveries', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             // Relations
-            $table->foreignId('rider_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('driver_id')->nullable()->constrained('drivers')->nullOnDelete();
+            $table->uuid('rider_id');
+            $table->uuid('driver_id')->nullable();
 
             // Details
             $table->text('description');
@@ -38,13 +38,19 @@ return new class extends Migration
             // Status
             $table->enum('status', ['requested', 'accepted', 'picked_up', 'delivered', 'cancelled'])->default('requested');
 
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('updated_by')->constrained('users')->cascadeOnDelete();
+            $table->uuid('created_by');
+            $table->uuid('updated_by');
             $table->timestamps();
 
             // Helpful indexes
             $table->index(['rider_id', 'driver_id']);
             $table->index('status');
+
+            // Foreign keys
+            $table->foreign('rider_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('driver_id')->references('id')->on('drivers')->nullOnDelete();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

@@ -8,21 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        // Add missing columns with proper foreign key constraints
         Schema::table('deliveries', function (Blueprint $table) {
-            $table->foreignId('booking_id')
+            $table->uuid('booking_id')
                 ->nullable()
-                ->after('driver_id')
-                ->constrained('bookings')
-                ->nullOnDelete();
+                ->after('driver_id');
+
+            $table->foreign('booking_id')->references('id')->on('bookings')->nullOnDelete();
         });
 
         Schema::table('bookings', function (Blueprint $table) {
-            $table->foreignId('delivery_request_id')
+            $table->uuid('delivery_request_id')
                 ->nullable()
-                ->after('cancel_reason')
-                ->constrained('deliveries')
-                ->nullOnDelete();
+                ->after('cancel_reason');
+
+            $table->foreign('delivery_request_id')->references('id')->on('deliveries')->nullOnDelete();
         });
     }
 

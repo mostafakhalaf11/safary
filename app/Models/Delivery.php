@@ -2,12 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Delivery extends Model
+class Delivery extends BaseModel
 {
-    use HasFactory;
 
     protected $fillable = [
         'booking_id',

@@ -9,21 +9,21 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('bookings', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
 
             // Relations
-            $table->foreignId('trip_id')->constrained('trips')->cascadeOnDelete();
-            $table->foreignId('rider_id')->constrained('users')->cascadeOnDelete();
+            $table->uuid('trip_id');
+            $table->uuid('rider_id');
 
             // Pickup details
             $table->enum('pickup_type', ['stop', 'custom_location']);
-            $table->foreignId('pickup_stop_id')->nullable()->constrained('trip_stops')->nullOnDelete();
+            $table->uuid('pickup_stop_id')->nullable();
             $table->decimal('pickup_lat', 10, 7)->nullable();
             $table->decimal('pickup_lng', 10, 7)->nullable();
 
             // Dropoff details
             $table->enum('dropoff_type', ['stop', 'custom_location']);
-            $table->foreignId('dropoff_stop_id')->nullable()->constrained('trip_stops')->nullOnDelete();
+            $table->uuid('dropoff_stop_id')->nullable();
             $table->decimal('dropoff_lat', 10, 7)->nullable();
             $table->decimal('dropoff_lng', 10, 7)->nullable();
 
@@ -41,12 +41,20 @@ return new class extends Migration
             ])->default('requested');
 
             $table->text('cancel_reason')->nullable();
-            $table->foreignId('created_by')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('updated_by')->constrained('users')->cascadeOnDelete();
+            $table->uuid('created_by');
+            $table->uuid('updated_by');
             $table->timestamps();
 
-            // Helpful indexes (foreignId already indexes, but explicit is fine)
+            // Helpful indexes
             $table->index(['trip_id', 'rider_id']);
+
+            // Foreign keys
+            $table->foreign('trip_id')->references('id')->on('trips')->cascadeOnDelete();
+            $table->foreign('rider_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('pickup_stop_id')->references('id')->on('trip_stops')->nullOnDelete();
+            $table->foreign('dropoff_stop_id')->references('id')->on('trip_stops')->nullOnDelete();
+            $table->foreign('created_by')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->cascadeOnDelete();
         });
     }
 

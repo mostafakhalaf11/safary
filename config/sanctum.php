@@ -3,6 +3,18 @@
 use Laravel\Sanctum\Sanctum;
 
 return [
+    /*
+    |--------------------------------------------------------------------------
+    | Personal Access Token Model
+    |--------------------------------------------------------------------------
+    |
+    | This configuration option defines the model that will be used to store
+    | personal access tokens. You may change this model to any other model
+    | that extends the base token model provided by Sanctum. However, this
+    | default model is usually sufficient for most applications, and you
+    | are free to customize it as needed.
+    | */
+    'personal_access_token_model' => App\Models\PersonalAccessToken::class,
 
     /*
     |--------------------------------------------------------------------------

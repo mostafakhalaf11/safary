@@ -3,11 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Booking extends Model
+class Booking extends BaseModel
 {
-    use HasFactory;
 
     protected $fillable = [
         'trip_id',

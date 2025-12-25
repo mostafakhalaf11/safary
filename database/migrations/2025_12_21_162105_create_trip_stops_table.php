@@ -12,16 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('trip_stops', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('trip_id')->constrained('trips')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->uuid('trip_id');
             $table->string('name');
             $table->decimal('lat', 10, 7);
             $table->decimal('lng', 10, 7);
             $table->string('address');
             $table->unsignedInteger('stop_order');
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
             $table->timestamps();
+
+            $table->foreign('trip_id')->references('id')->on('trips')->cascadeOnDelete();
+            $table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->nullOnDelete();
         });
     }
 

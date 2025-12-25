@@ -12,9 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('trips', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('driver_id')->constrained('drivers')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->uuid('id')->primary();
+            $table->uuid('driver_id');
+            $table->uuid('user_id');
             $table->string('title');
 
             $table->decimal('start_lat', 10, 7);
@@ -36,10 +36,15 @@ return new class extends Migration
             $table->unsignedInteger('geofence_radius_start')->nullable();
             $table->unsignedInteger('geofence_radius_end')->nullable();
             $table->enum('status', ['draft', 'published', 'cancelled'])->default('draft');
-            $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();
-            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->uuid('created_by')->nullable();
+            $table->uuid('updated_by')->nullable();
 
             $table->timestamps();
+
+            $table->foreign('driver_id')->references('id')->on('drivers')->cascadeOnDelete();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            $table->foreign('created_by')->references('id')->on('users')->nullOnDelete();
+            $table->foreign('updated_by')->references('id')->on('users')->nullOnDelete();
         });
     }
 
