@@ -17,7 +17,11 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        $this->call([
+            RolesAndPermissionsSeeder::class,
+        ]);
+
+        $superAdmin = User::factory()->create([
             'name' => 'khalaf',
             'email' => 'khalaf@safary.com',
             'phone_number' => '+201153470446',
@@ -29,5 +33,6 @@ class DatabaseSeeder extends Seeder
             'is_deleted' => false,
             'email_verified_at' => now(),
         ]);
+        $superAdmin->assignRole('admin');
     }
 }

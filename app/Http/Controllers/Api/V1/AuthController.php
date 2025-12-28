@@ -37,6 +37,8 @@ class AuthController extends Controller
             $data['password'] = Hash::make($data['password']);
             DB::beginTransaction();
             $user = User::create($data);
+            $role = $data['type'] === 'driver' ? 'driver' : 'customer';
+            $user->assignRole($role);
             $token = $user->createToken('api-token')->plainTextToken;
             DB::commit();
             return response()->json([
