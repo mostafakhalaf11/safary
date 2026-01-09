@@ -79,4 +79,8 @@ class User extends Authenticatable
             ->where('is_active', true)
             ->first() ?? abort(404, 'User not found');
     }
+    public function driver()
+    {
+        return $this->hasOne(Driver::class, 'user_id', 'id');
+    }
 }

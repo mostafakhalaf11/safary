@@ -40,6 +40,33 @@ class AuthController extends Controller
             $role = $data['type'] === 'driver' ? 'driver' : 'customer';
             $user->assignRole($role);
             $token = $user->createToken('api-token')->plainTextToken;
+            if ($data['type'] == 'driver' && !empty($data['type'])) {
+                // Create driver profile
+                // $user->driver()->create([
+                //     'user_id' => $user->id,
+                //     'vehicle_make' => $request->input('vehicle_make') ?: 'Toyota',
+                //     'vehicle_model=> ' => $request->input('vehicle_model') ?: 'Corolla',
+                //     'vehicle_plate_number' => $request->input('vehicle_plate_number') ?? 'ABC-1234',
+                //     'vehicle_color' => $request->input('vehicle_color') ?? 'White',
+                //     'license_number' => $request->input('license_number') ?? 'DL-987654321',
+                //     'license_doc_path' => $request->input('license_doc_path') ?? 'uploads/licenses/sample-license.jpg',
+                //     'status' => 'pending',
+                //     'rating_avg' => 0,
+                //     'created_by' => $user->id,
+                // ]);
+                $user->driver()->create([
+                    'user_id' => $user->id,
+                    'vehicle_make' => 'Toyota',
+                    'vehicle_model' => 'Corolla',
+                    'vehicle_plate_number' => 'ABC-1234',
+                    'vehicle_color' => 'White',
+                    'license_number' => 'DL-987654321',
+                    'license_doc_path' => 'uploads/licenses/sample-license.jpg',
+                    'status' => 'pending',
+                    'rating_avg' => 0,
+                    'created_by' => $user->id,
+                ]);
+            }
             DB::commit();
             return response()->json([
                 'message' => 'User registered successfully',
